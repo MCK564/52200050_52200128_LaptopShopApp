@@ -71,7 +71,6 @@ class LaptopController extends Controller
     }
     public function create_or_update(Request $request, $id = null)
     {
-       
         $validatedData = $request->validate([
             'name' => 'required|string|max:350',
             'price' => 'required|numeric',
@@ -94,7 +93,7 @@ class LaptopController extends Controller
             'webcam' => 'nullable|string|max:255',
             'lan' => 'nullable|string|max:255',
         ]);
-
+        
         // Xử lý tải lên hình ảnh thumbnail nếu có
         if ($request->hasFile('thumbnail')) {
             $image = $request->file('thumbnail');

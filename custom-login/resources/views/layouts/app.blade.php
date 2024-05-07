@@ -39,32 +39,32 @@
             <main>
                 {{ $slot }}
             </main>
-            <footer class="bg-white shadow mb-2">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <footer class="bg-white shadow mb-2 text-gray-500">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 font-bold">
                     <div class="flex justify-between">
-                        <div class="mb-4 mx-2 flex-none hover:flex-1">
-                            <h2 class="text-lg font-semibold mb-2">Contact Information</h2>
-                            <p class="text-sm">123 ABC Street, XYZ Ward, HCM City</p>
-                            <p class="text-sm">Email: example@example.com</p>
-                            <p class="text-sm">Phone: 0123 456 789</p>
+                        <div class="mb-4 mx-2 flex-none">
+                            <h2 class="text-lg font-semibold mb-2  cursor-pointer">Contact Information</h2>
+                            <p class="text-sm hover:text-cyan-600 cursor-pointer">123 ABC Street, XYZ Ward, HCM City</p>
+                            <p class="text-sm hover:text-cyan-600 cursor-pointer">Email: example@example.com</p>
+                            <p class="text-sm hover:text-cyan-600 cursor-pointer">Phone: 0123 456 789</p>
                         </div>
-                        <div class="mb-4 md:mb-0 mx-2">
+                        <div class="mb-4 md:mb-0 mx-2  ">
                             <h2 class="text-lg font-semibold mb-2">Links</h2>
-                            <ul class="text-sm">
-                                <li><a href="#" class="text-gray-600 hover:text-gray-800">Home</a></li>
-                                <li><a href="#" class="text-gray-600 hover:text-gray-800">Products</a></li>
-                                <li><a href="#" class="text-gray-600 hover:text-gray-800">Contact</a></li>
-                                <li><a href="#" class="text-gray-600 hover:text-gray-800">About Us</a></li>
+                            <ul class="text-sm ">
+                                <li><a href="#" class="hover:text-cyan-600 cursor-pointer">Home</a></li>
+                                <li><a href="#" class="hover:text-cyan-600 cursor-pointer">Products</a></li>
+                                <li><a href="#" class="hover:text-cyan-600 cursor-pointer">Contact</a></li>
+                                <li><a href="#" class="hover:text-cyan-600 cursor-pointer">About Us</a></li>
                             </ul>
                         </div>
                         <!-- Support Section -->
-                        <div class="mb-4 md:mb-0 mx-2">
+                        <div class="mb-4 md:mb-0 mx-2 ">
                             <h2 class="text-lg font-semibold mb-2">Support</h2>
                             <ul class="text-sm">
-                                <li><a href="#" class="text-gray-600 hover:text-gray-800">FAQs</a></li>
-                                <li><a href="#" class="text-gray-600 hover:text-gray-800">Contact Us</a></li>
-                                <li><a href="#" class="text-gray-600 hover:text-gray-800">Shipping Information</a></li>
-                                <li><a href="#" class="text-gray-600 hover:text-gray-800">Return Policy</a></li>
+                                <li><a href="#" class="hover:text-cyan-600 cursor-pointer">FAQs</a></li>
+                                <li><a href="#" class="hover:text-cyan-600 cursor-pointer">Contact Us</a></li>
+                                <li><a href="#" class="hover:text-cyan-600 cursor-pointer">Shipping Information</a></li>
+                                <li><a href="#" class="hover:text-cyan-600 cursor-pointer">Return Policy</a></li>
                             </ul>
                         </div>
                     </div>

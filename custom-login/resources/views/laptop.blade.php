@@ -118,10 +118,9 @@
 
 <script>
     document.getElementById('searchForm').addEventListener('submit', function(event) {
-        // Loại bỏ các trường input rỗng trước khi gửi form
         Array.from(this.elements).forEach(function(element) {
             if (element.type !== 'submit' && element.value.trim() === '') {
-                element.removeAttribute('name'); // Loại bỏ trường không có giá trị
+                element.removeAttribute('name');
             }
         });
     });

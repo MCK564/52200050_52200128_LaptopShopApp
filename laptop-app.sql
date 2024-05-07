@@ -3,10 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: mysql
--- Thời gian đã tạo: Th4 22, 2024 lúc 02:14 AM
+-- Thời gian đã tạo: Th5 07, 2024 lúc 03:44 PM
 -- Phiên bản máy phục vụ: 8.0.28
 -- Phiên bản PHP: 8.2.18
-
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -64,6 +63,14 @@ CREATE TABLE `cart_items` (
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `total_money` decimal(10,2) NOT NULL DEFAULT '0.00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `cart_items`
+--
+
+INSERT INTO `cart_items` (`id`, `user_id`, `laptop_id`, `quantity`, `created_at`, `updated_at`, `total_money`) VALUES
+(44, 4, 1, 10, '2024-05-03 06:58:31', '2024-05-03 06:58:31', 9999.90),
+(47, 4, 3, 1, '2024-05-03 09:24:06', '2024-05-03 09:24:11', 1399.99);
 
 -- --------------------------------------------------------
 
@@ -247,10 +254,14 @@ INSERT INTO `orders` (`id`, `user_id`, `fullname`, `phone_number`, `note`, `orde
 (23, 14, 'cus3', '777999888', 'che tên nếu không muốn bị hack', '2024-04-21 08:28:12', 'processing', 3299.97, '300, Mai Chi Tho, District 2, Ho Chi Minh City', 'COD', NULL, NULL, NULL),
 (24, 4, 'cus1', '0987899977', 'hàng dễ vỡ xin nhẹ tay', '2024-04-21 09:46:54', 'cancelled', 11108.90, '105, Tan Phong, District 7, Ho Chi Minh City', 'COD', NULL, NULL, NULL),
 (25, 4, 'test', '0888888888', 'đóng gói cẩn thận nếu không muốn bị ban', '2024-04-21 09:48:18', 'cancelled', 3187.80, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, NULL),
-(26, 4, 'Kha', '0888888888', 'nếu muốn phá sản hãy gửi hàng đểu', '2024-04-21 09:49:27', 'pending', 3408.89, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, 340.89),
+(26, 4, 'Kha', '0888888888', 'nếu muốn phá sản hãy gửi hàng đểu', '2024-04-21 09:49:27', 'processing', 3408.89, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, 340.89),
 (27, 15, 'cus1', '0987899977', 'hàng dễ vỡ xin nhẹ tay', '2024-04-21 10:45:07', 'received', 6049.99, '105, Tan Phong, District 7, Ho Chi Minh City', 'COD', NULL, NULL, 605.00),
 (28, 15, 'Kha', '0888888888', NULL, '2024-04-21 10:45:28', 'processing', 1429.99, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, 143.00),
-(29, 15, 'Chí Kha', '1234554321', 'đóng gói cẩn thận nếu không muốn bị ban', '2024-04-21 10:45:41', 'cancelled', 1209.99, 'Nhà Bè, TP Hồ Chí Minh', 'COD', NULL, NULL, 121.00);
+(29, 15, 'Chí Kha', '1234554321', 'đóng gói cẩn thận nếu không muốn bị ban', '2024-04-21 10:45:41', 'cancelled', 1209.99, 'Nhà Bè, TP Hồ Chí Minh', 'COD', NULL, NULL, 121.00),
+(30, 17, 'Kha', '0888888888', 'nếu muốn phá sản hãy gửi hàng đểu', '2024-04-22 03:48:00', 'delivered', 1429.99, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, 143.00),
+(31, 17, 'd', 'd', NULL, '2024-04-22 04:03:34', 'cancelled', 9563.40, 'd', 'COD', NULL, NULL, 956.34),
+(32, 1, 'Kha', '0888888888', 'che tên nếu không muốn bị hack', '2024-05-03 01:43:11', 'pending', 1613040.00, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, 161304.00),
+(33, 4, 'Kha', '0888888888', 'hàng dễ vỡ xin nhẹ tay', '2024-05-03 06:59:35', 'pending', 5389.97, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, 539.00);
 
 -- --------------------------------------------------------
 
@@ -290,7 +301,13 @@ INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `price`, `number_of
 (22, 27, 21, 1500.00, 3, 4500.00, 'gray'),
 (23, 27, 1, 999.99, 1, 999.99, 'silver'),
 (24, 28, 2, 1299.99, 1, 1299.99, 'gray'),
-(25, 29, 5, 1099.99, 1, 1099.99, 'black');
+(25, 29, 5, 1099.99, 1, 1099.99, 'black'),
+(26, 30, 2, 1299.99, 1, 1299.99, 'gray'),
+(27, 31, 14, 1299.00, 3, 3897.00, NULL),
+(28, 31, 16, 1599.00, 3, 4797.00, NULL),
+(29, 32, 20, 1200.00, 1222, 1466400.00, 'ultra galaxy'),
+(30, 33, 5, 1099.99, 1, 1099.99, 'black'),
+(31, 33, 7, 1899.99, 2, 3799.98, NULL);
 
 -- --------------------------------------------------------
 
@@ -354,7 +371,9 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `us
 (12, 'Kha test mail', 'khamai05767@gmail.com', NULL, '$2y$10$2RlVTzp26Cj0yCsdlqSiDu/IJe0TE19y2i9t8qiC6S0wtkurYGFSW', 'user', NULL, '2024-04-16 03:26:24', '2024-04-16 03:26:24'),
 (13, 'kha test mail', 'chikha13122@gmail.com', NULL, '$2y$10$DGHVS1EG4lbWhE4fm3jNTuHzumoq6Ps32vnVjxjy4s8Yf.2KcQWky', 'user', NULL, '2024-04-16 03:30:42', '2024-04-16 03:30:42'),
 (14, 'mck', 'mck@gmail.com', NULL, '$2y$10$2wqUgTV92Q3t6xHNO7kFpuGciI2PPOZWybrLJUBwBaMYMujtA5.Va', 'user', NULL, '2024-04-21 08:26:05', '2024-04-21 08:26:05'),
-(15, 'Nam', 'nam@gmail.com', NULL, '$2y$10$JZ7yO6DzNYl8Npc8EkYaZuu26UnbX9MyRp1JDeSo.dgUa/L0dLdoO', 'user', NULL, '2024-04-21 10:39:10', '2024-04-21 10:39:10');
+(15, 'Nam', 'nam@gmail.com', NULL, '$2y$10$JZ7yO6DzNYl8Npc8EkYaZuu26UnbX9MyRp1JDeSo.dgUa/L0dLdoO', 'user', NULL, '2024-04-21 10:39:10', '2024-04-21 10:39:10'),
+(16, 'Yen', 'chomatdin@gmail.com', NULL, '$2y$10$e8/qL8MM0iMeNBP12IRIhOz.SMoDBxz9w/r5iEBw71.coAbD9SFnC', 'user', NULL, '2024-04-22 03:38:19', '2024-04-22 03:38:19'),
+(17, 'Yen', 'chomatdinh@gmail.com', NULL, '$2y$10$lPD0VHEl64G0ci4sv/vjn.qBg0AhwOiYSbFn5GlQXU4MhSDI6Jedm', 'user', 'OdAf5t6YzNsi9b56IvupbFEzEEYzhdpE352hCV9rAZwHyuuitB4NpTVNUrCb', '2024-04-22 03:39:55', '2024-04-22 04:03:51');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -451,7 +470,7 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT cho bảng `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT cho bảng `failed_jobs`
@@ -481,13 +500,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT cho bảng `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT cho bảng `personal_access_tokens`
@@ -499,7 +518,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
