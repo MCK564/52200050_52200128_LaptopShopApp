@@ -16,6 +16,19 @@
             <div class="w-full md:w-1/2 px-3 mb-2">
                 <p><strong>Status:</strong> {{ ucfirst($order->status) }}</p>
             </div>
+            <div class="w-full md:w-1/2 px-3 mb-2 flex ">
+                <p><strong>Paid:</strong> </p>
+                @if ($order->paid==1)
+                     <div class="underline rounded-md text-green-800 border-white mx-3" >
+                        payment success   
+                     </div>
+                @else
+                <div class="underline text-yellow-700  rounded-md border-white mx-3"  >
+                   not paid  
+                 </div>
+                @endif
+               
+            </div>
         </div>
     </div>
 
@@ -74,9 +87,12 @@
         <x-danger-button class="mr-4">
             {{ __('DELETE') }}
         </x-danger-button>
-        <x-primary-button>
-            {{ __('ACCEPTED') }}
-        </x-primary-button>
+        @if (Auth()->user()->user_type == 'admin')
+            <x-primary-button>
+                {{ __('ACCEPTED') }}
+            </x-primary-button>
+        @endif
+    
     </div>
     @else
     <div class="mt-4">

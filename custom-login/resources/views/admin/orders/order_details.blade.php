@@ -17,6 +17,19 @@
             <div class="w-full md:w-1/2 px-3 mb-2">
                 <p><strong>Status:</strong> {{ ucfirst($order->status) }}</p>
             </div>
+            <div class="w-full md:w-1/2 px-3 mb-2 flex ">
+                <p><strong>Paid:</strong> </p>
+                @if ($order->paid==1)
+                     <div class="underline rounded-md text-green-800 border-white mx-3" >
+                        payment success   
+                     </div>
+                @else
+                <div class="underline text-yellow-700  rounded-md border-white mx-3"  >
+                   not paid  
+                 </div>
+                @endif
+               
+            </div>
         </div>
     </div>
 
@@ -28,7 +41,7 @@
                 <p><strong>Name:</strong> {{ $order->fullname }}</p>
             </div>
             <div class="w-full md:w-1/2 px-3 mb-2">
-                <p><strong>Email:</strong> {{ $order->email }}</p>
+                <p><strong>Payment Method:</strong> {{ $order->payment_method }}</p>
             </div>
             <div class="w-full md:w-1/2 px-3 mb-2">
                 <p><strong>Phone Number:</strong> {{ $order->phone_number }}</p>

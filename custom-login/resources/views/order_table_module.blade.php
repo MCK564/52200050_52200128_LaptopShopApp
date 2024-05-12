@@ -16,15 +16,16 @@
                     <th scope="col" class="px-6 py-3">
                         Receiver
                     </th>  
-                    <th scope="col" class="px-6 py-3">
-                        Received address
-                    </th>
+                  
                   
                     <th scope="col" class="px-6 py-3">
                         Total money
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Status
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        ORDER DATE
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Action
@@ -52,18 +53,27 @@
                         <td class="p-4 hover:border-cyan-600 border-cyan-400">
                             {{ $order->fullname }}
                         </td>
-                        <td class="px-6 py-4 font-semibold  ">
-                          {{ $order->shipping_address }}
-                        </td>
+                     
                         <td class="px-6 py-4">
                             {{ $order->total_money }}
                         </td>
                         <td class="px-6 py-4">
                             {{ $order->status }}
                         </td>
+                        <td class="px-6 py-4 font-semibold  ">
+                            {{ $order->order_date }}
+                          </td>
                         <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                             @if ($order->status === 'pending' || $order->status == 'processing')
                             <div class="flex items-center" >
+                                @if ($order->payment_method == 'VNPAY' && $order->paid == false)
+                                    <form action ={{route('vnpay_payment',['id'=>$order->id])}} method="GET">
+                                        @csrf
+                                        <button type="submit" class="border-gray-300 uppercase shadow-sm rounded-md px-2 py-1 bg-green-300 hover:bg-green-600 text-white">
+                                            Pay
+                                        </button>
+                                    </form>
+                                @endif
                                 <form action={{ route('order.getById',['id'=>$order->id]) }} method="GET">
                                     <button type="submit" class="border-gray-300 uppercase shadow-sm rounded-md px-2 py-1 bg-yellow-300 hover:bg-yellow-600 text-white">
                                         View

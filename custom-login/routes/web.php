@@ -4,6 +4,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\EmailConTroller;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LaptopController;
 use App\Http\Controllers\OrderController;
@@ -11,7 +12,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoogleDriveController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TestController;
+use Faker\Provider\ar_EG\Payment;
 use Google\Service\Dfareporting\OrderContact; 
 
 /*
@@ -25,22 +28,27 @@ use Google\Service\Dfareporting\OrderContact;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/',[HomeController::class,'index'])->name('home');
 
+ // laptops
+Route::post('/laptops',[LaptopController::class,'addToCart'])->name('laptops.addToCart');
+Route::get('/laptops/{id}',[LaptopController::class,'getById'])->name('laptop_detail.index');
+Route::get('/search',[LaptopController::class,'UserSearch'])->name('laptop.search');
+Route::get('/laptops',[LaptopController::class,'index'])->name('laptops.index');
+ // contact
+Route::get('/contact',[ContactController::class,'index'])->name('contact.index');
+
+ // about
+Route::get('/about',[AboutUsController::class,'index'])->name('about.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/home',[HomeController::class,'index'])->name('home');
-
-    // laptops
-    Route::get('/laptops',[LaptopController::class,'index'])->name('laptops.index');
-    Route::post('/laptops',[LaptopController::class,'addToCart'])->name('laptops.addToCart');
-    Route::get('/laptops/{id}',[LaptopController::class,'getById'])->name('laptop_detail.index');
-    Route::get('/search',[LaptopController::class,'UserSearch'])->name('laptop.search');
+  
 
     // orders
     Route::get('/orders',[OrderController::class,'index'])->name('orders.index');
@@ -57,13 +65,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/carts/{id}',[CartController::class,'delete'])->name('cart.delete');
     Route::post('/cart',[CartController::class,'add'])->name('cart.add');
     Route::post('/cart/{id}',[CartController::class,'update_quantity'])->name('cart.update_quantity');
-
-    // contact
-    Route::get('/contact',[ContactController::class,'index'])->name('contact.index');
-
-    // about
-    Route::get('/about',[AboutUsController::class,'index'])->name('about.index');
-    
+    Route::get('/bill-mail/{id}',[EmailConTroller::class,'sendBillMail'])->name('mail.bill');
+   
+    Route::get('/vnpay_payment/{id}',[PaymentController::class,'create_vnpay_payment'])->name("vnpay_payment");
+    Route::get('/vnpay_return',[PaymentController::class,'vnpay_return'])->name("vnpay_return");
 });
 
 

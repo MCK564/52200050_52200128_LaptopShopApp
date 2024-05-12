@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\EmailService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -50,9 +51,9 @@ class AuthManager extends Controller
         
         if(!$user){
             return redirect(route('regiser'))->with("error","invalid information, try again");
-
         }
-
+        $emailService = new EmailService();
+        $emailService->sendWelcomeMail($user);
         return redirect(route('login'))->with("success","Register success, Login to access the app");
     }
     

@@ -20,10 +20,6 @@ class Laptop extends Model
     {
         return $this->hasMany(LaptopImages::class);
     }
-    public function laptop()
-    {
-        return $this->belongsTo(Laptop::class);
-    }
 
 
 }

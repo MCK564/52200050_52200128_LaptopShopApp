@@ -14,18 +14,14 @@ class LaptopController extends Controller
 {
     public function index()
     {
+        $laptops = Laptop::paginate(12);
         if (Auth::id()) {
             $userType = Auth()->user()->user_type;
-            $laptops = Laptop::paginate(12);
-            if ($userType == 'user') {
-                return view('laptop', compact('laptops'));
-            } else if ($userType == 'admin') {
+            if ($userType == 'admin') {
                 return view('admin.laptops.laptop', compact('laptops'));
             }
-            else {
-                return redirect()->back();
-            }
         }
+        return view('laptop', compact('laptops'));
     }
     public function search(Request $request)
     {   
@@ -36,9 +32,7 @@ class LaptopController extends Controller
             ->paginate(12);
 
         $userType = Auth()->user()->user_type;
-        if ($userType == 'user') {
-            return "haha";
-        } else if ($userType == 'admin') {
+        if ($userType == 'admin') {
             return view('admin.laptops.laptop', compact('laptops'));
         }
         else {

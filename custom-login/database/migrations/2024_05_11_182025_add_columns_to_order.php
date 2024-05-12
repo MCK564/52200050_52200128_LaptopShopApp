@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-           $table->timestamps();
+            $table->string('email')->nullable(false);
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('orders', function (Blueprint $table) {
-           $table->dropTimestamps();
+        Schema::table('order', function (Blueprint $table) {
+            //
         });
     }
 };

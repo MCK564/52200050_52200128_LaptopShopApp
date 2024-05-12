@@ -14,7 +14,8 @@
             
             <x-nav-link :href="route('admin_laptop.show_create')" class="text-green-600 hover:text-green-800  mx-3">
                 {{ __('CREATE') }}
-            </x-nav-link></div>
+            </x-nav-link>
+        </div>
           
         </form>
     </div>

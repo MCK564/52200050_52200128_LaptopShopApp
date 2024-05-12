@@ -14,6 +14,8 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Welcome;
+use App\Services\EmailService;
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -42,7 +44,8 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        // Mail::to($user->email)->send(new Welcome());
+        $emailService = new EmailService();
+        $emailService->sendWelcomeMail($user);
         event(new Registered($user));
         Auth::login($user);
         return redirect(RouteServiceProvider::HOME);

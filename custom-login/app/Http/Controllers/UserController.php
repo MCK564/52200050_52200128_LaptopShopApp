@@ -11,7 +11,6 @@ class UserController extends Controller
 {
     public function index()
     {
-
         if (Auth::id()) {
             $userType = Auth()->user()->user_type;
             $users = User::paginate(10);

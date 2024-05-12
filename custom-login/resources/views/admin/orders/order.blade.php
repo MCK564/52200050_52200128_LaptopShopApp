@@ -23,32 +23,41 @@
         </form>
     </div>
 
-    <x-table :headers="['ID', 'User ID', 'Fullname', 'Email', 'Phone Number', 'Order Date', 'Status', 'Total Money', 'Actions']" :data="$orders" class="border-collapse border border-gray-200">
+    <x-table :headers="['ID', 'Fullname',  'Phone Number', 'Order Date', 'Status', 'Total Money', 'Actions']" :data="$orders" class="border-collapse border border-gray-200">
         @foreach ($orders as $order)
         <tr>
             <td class="px-6 py-4">{{ $order->id }}</td>
-            <td class="px-6 py-4">{{ $order->user_id }}</td>
+         
             <td class="px-6 py-4">{{ $order->fullname }}</td>
-            <td class="px-6 py-4">{{ $order->email }}</td>
+           
             <td class="px-6 py-4">{{ $order->phone_number }}</td>
             <td class="px-6 py-4">{{ $order->order_date }}</td>
             <td class="px-6 py-4">{{ $order->status }}</td>
             <td class="px-6 py-4">{{ $order->total_money }}</td>
-            <td class="px-6 py-4 space-x-2">
+            <td class="px-6 py-4 space-x-2 flex items-center">
                 <x-nav-link :href="route('admin_order.getById', ['id' => $order->id])" class="text-yellow-400 hover:text-yellow-900">
                     {{ __('Details') }}
                 </x-nav-link>
+                
                 @if ($order->status == 'pending' || $order->status == 'processing')
-              
-                <form method="POST" action="{{ route('admin_order.delete', ['id' => $order->id]) }}" class="inline cursor-pointer">
-                    @csrf
-                    @method('DELETE')
-                   <button type="submit" class="text-3xl font-bold bg-red-400 hover:bg-red-600 rounded-md shadow-sm text-white px-2 py-0">
-                     x
-                   </button>
-                </form>
+                    <form method="POST" action="{{ route('admin_order.delete', ['id' => $order->id]) }}" class="inline cursor-pointer">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-lg font-bold bg-red-400 hover:bg-red-600 rounded-md shadow-sm text-white px-3 py-1">
+                            X
+                        </button>
+                    </form>
+                @endif
+            
+                @if ($order->paid == 1) 
+                    <div class="bg-green-500 flex items-center justify-center text-white w-8 h-8 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check text-lg" viewBox="0 0 16 16">
+                            <path d="M13.293 4.293a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0l-3-3a1 1 0 1 1 1.414-1.414L6 10.586l6.293-6.293a1 1 0 0 1 1.414 0z"/>
+                        </svg>
+                    </div>
                 @endif
             </td>
+            
         </tr>
 
         @endforeach

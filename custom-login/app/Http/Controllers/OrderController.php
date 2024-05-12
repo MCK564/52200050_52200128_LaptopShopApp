@@ -17,11 +17,14 @@ class OrderController extends Controller
         if (Auth::id()) {
             $userType = Auth()->user()->user_type;
             if ($userType == 'admin') {
-                $orders = Order::paginate(50);
+                $orders = Order::orderBy("created_at",'desc')
+                ->paginate(50);
                 return view('admin.orders.order', compact('orders'));
             } else if ($userType == 'user') {
                 $existing_user_id = Auth::id();
-                $orders = Order::where('user_id',$existing_user_id)->get();
+                $orders = Order::where('user_id',$existing_user_id)
+                ->orderBy("created_at",'desc')
+                ->get();
                 return view('order',compact('orders'));
             }
         }
@@ -42,6 +45,8 @@ class OrderController extends Controller
             'status' => 'pending',
             'shipping_address' => $request->input('address'),
             'total_money' => $request->input('total_money'),
+            'paid'=>false,
+            'email'=>$request->input('email')
         ]);
 
         foreach ($cart_items as $item) {
@@ -52,13 +57,16 @@ class OrderController extends Controller
             'number_of_products'=>$item->quantity,
             'total_money'=>$item->total_money,
             'color'=>$item->laptop->color,
+           
            ]);
            $item->delete();
         }
-
-    
-        return redirect()->route('orders.index');
+        if($request->input('payment_method') == 'COD'){
+            return redirect()->route('orders.index');
+        }
+        return redirect()->route('vnpay_payment',['id'=>$newOrder->id]);
     }
+
     public function delete($id)
     {
         

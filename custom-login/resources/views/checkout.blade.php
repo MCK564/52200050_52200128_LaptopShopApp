@@ -17,6 +17,7 @@
                 <input type="text" name="receiver" placeholder="receiver's fullname" class=" border-gray-400 shadow-sm  rounded-md hover:border-gray-600 sm:col-span-1" required/>       
                 <input type="text" name="phone" placeholder="receriver's phone number" class="border-gray-400 shadow-sm rounded-md hover:border-gray-600 sm:col-span-1" required/>       
                  <input type="text" name="address" class=" border-gray-400 shadow-sm rounded-md hover:border-gray-600 sm:col-span-2" placeholder="received address" required/>
+                 <input type="text" name="email" class=" border-gray-400 shadow-sm rounded-md hover:border-gray-600 sm:col-span-2" placeholder="email" required/>
             </div>
             <hr class="border-gray-100 my-1 border-4 rounded"/>
             <div class="flex items-center mt-1 text-cyan-400 font-bold">
@@ -89,9 +90,11 @@
                 
                         <select id="payment_method" name="payment_method" class="w-52 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block mx-2  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                           <option value="COD">COD</option>
+                          <option value="VNPAY" >VNPay</option>
                           <option value="MOMO" disabled>MOMO</option>
                           <option value="CREDIT-CARD" disabled>Credit card</option>
                           <option value="GG_Pay" disabled>Google Payment</option>
+                          
                         </select>
                     </div>
                 </div>

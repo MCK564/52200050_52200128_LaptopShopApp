@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: mysql
--- Thời gian đã tạo: Th5 07, 2024 lúc 03:44 PM
+-- Thời gian đã tạo: Th5 12, 2024 lúc 06:07 PM
 -- Phiên bản máy phục vụ: 8.0.28
 -- Phiên bản PHP: 8.2.18
 
@@ -69,8 +69,7 @@ CREATE TABLE `cart_items` (
 --
 
 INSERT INTO `cart_items` (`id`, `user_id`, `laptop_id`, `quantity`, `created_at`, `updated_at`, `total_money`) VALUES
-(44, 4, 1, 10, '2024-05-03 06:58:31', '2024-05-03 06:58:31', 9999.90),
-(47, 4, 3, 1, '2024-05-03 09:24:06', '2024-05-03 09:24:11', 1399.99);
+(48, 1, 1, 1, '2024-05-08 07:45:29', '2024-05-08 07:45:29', 999.99);
 
 -- --------------------------------------------------------
 
@@ -218,7 +217,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (11, '2024_04_18_170010_add_column_to_cart_items', 3),
 (12, '2024_04_18_170811_add_column_to_cart_items_2', 4),
 (13, '2024_04_21_063344_add_columns_to_orders', 5),
-(14, '2024_04_21_070702_add_columns_to_orders2', 6);
+(15, '2024_05_08_120319_add_columnn_to_orders', 6),
+(16, '2024_05_11_182025_add_columns_to_order', 7);
 
 -- --------------------------------------------------------
 
@@ -239,29 +239,40 @@ CREATE TABLE `orders` (
   `payment_method` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `tax` double(8,2) DEFAULT NULL
+  `tax` double(8,2) DEFAULT NULL,
+  `paid` tinyint(1) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `fullname`, `phone_number`, `note`, `order_date`, `status`, `total_money`, `shipping_address`, `payment_method`, `created_at`, `updated_at`, `tax`) VALUES
-(19, 4, 'cus1', '0987899977', 'nếu muốn phá sản hãy gửi hàng đểu', '2024-04-21 07:00:41', 'cancelled', 10669.91, '105, Tan Phong, District 7', 'COD', NULL, NULL, NULL),
-(20, 4, 'Chí Kha', '1234554321', 'đóng gói cẩn thận nếu không muốn bị ban', '2024-04-21 07:11:25', 'received', 2639.98, 'Nhà Bè', 'COD', NULL, NULL, NULL),
-(21, 4, 'cus2', '0333279377', 'che tên nếu không muốn bị hack', '2024-04-21 07:14:48', 'cancelled', 4619.97, '260, Mai Chi Tho, District 2, Ho Chi Minh City', 'COD', NULL, NULL, NULL),
-(22, 14, 'Kha', '0888888888', 'nếu muốn phá sản hãy gửi hàng đểu', '2024-04-21 08:26:39', 'processing', 3078.90, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, NULL),
-(23, 14, 'cus3', '777999888', 'che tên nếu không muốn bị hack', '2024-04-21 08:28:12', 'processing', 3299.97, '300, Mai Chi Tho, District 2, Ho Chi Minh City', 'COD', NULL, NULL, NULL),
-(24, 4, 'cus1', '0987899977', 'hàng dễ vỡ xin nhẹ tay', '2024-04-21 09:46:54', 'cancelled', 11108.90, '105, Tan Phong, District 7, Ho Chi Minh City', 'COD', NULL, NULL, NULL),
-(25, 4, 'test', '0888888888', 'đóng gói cẩn thận nếu không muốn bị ban', '2024-04-21 09:48:18', 'cancelled', 3187.80, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, NULL),
-(26, 4, 'Kha', '0888888888', 'nếu muốn phá sản hãy gửi hàng đểu', '2024-04-21 09:49:27', 'processing', 3408.89, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, 340.89),
-(27, 15, 'cus1', '0987899977', 'hàng dễ vỡ xin nhẹ tay', '2024-04-21 10:45:07', 'received', 6049.99, '105, Tan Phong, District 7, Ho Chi Minh City', 'COD', NULL, NULL, 605.00),
-(28, 15, 'Kha', '0888888888', NULL, '2024-04-21 10:45:28', 'processing', 1429.99, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, 143.00),
-(29, 15, 'Chí Kha', '1234554321', 'đóng gói cẩn thận nếu không muốn bị ban', '2024-04-21 10:45:41', 'cancelled', 1209.99, 'Nhà Bè, TP Hồ Chí Minh', 'COD', NULL, NULL, 121.00),
-(30, 17, 'Kha', '0888888888', 'nếu muốn phá sản hãy gửi hàng đểu', '2024-04-22 03:48:00', 'delivered', 1429.99, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, 143.00),
-(31, 17, 'd', 'd', NULL, '2024-04-22 04:03:34', 'cancelled', 9563.40, 'd', 'COD', NULL, NULL, 956.34),
-(32, 1, 'Kha', '0888888888', 'che tên nếu không muốn bị hack', '2024-05-03 01:43:11', 'pending', 1613040.00, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, 161304.00),
-(33, 4, 'Kha', '0888888888', 'hàng dễ vỡ xin nhẹ tay', '2024-05-03 06:59:35', 'pending', 5389.97, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, 539.00);
+INSERT INTO `orders` (`id`, `user_id`, `fullname`, `phone_number`, `note`, `order_date`, `status`, `total_money`, `shipping_address`, `payment_method`, `created_at`, `updated_at`, `tax`, `paid`, `email`) VALUES
+(19, 4, 'cus1', '0987899977', 'nếu muốn phá sản hãy gửi hàng đểu', '2024-04-21 07:00:41', 'cancelled', 10669.91, '105, Tan Phong, District 7', 'COD', NULL, NULL, NULL, 0, ''),
+(20, 4, 'Chí Kha', '1234554321', 'đóng gói cẩn thận nếu không muốn bị ban', '2024-04-21 07:11:25', 'received', 2639.98, 'Nhà Bè', 'COD', NULL, NULL, NULL, 0, ''),
+(21, 4, 'cus2', '0333279377', 'che tên nếu không muốn bị hack', '2024-04-21 07:14:48', 'cancelled', 4619.97, '260, Mai Chi Tho, District 2, Ho Chi Minh City', 'COD', NULL, NULL, NULL, 0, ''),
+(22, 14, 'Kha', '0888888888', 'nếu muốn phá sản hãy gửi hàng đểu', '2024-04-21 08:26:39', 'processing', 3078.90, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, NULL, 1, ''),
+(23, 14, 'cus3', '777999888', 'che tên nếu không muốn bị hack', '2024-04-21 08:28:12', 'processing', 3299.97, '300, Mai Chi Tho, District 2, Ho Chi Minh City', 'COD', NULL, NULL, NULL, 1, ''),
+(24, 4, 'cus1', '0987899977', 'hàng dễ vỡ xin nhẹ tay', '2024-04-21 09:46:54', 'cancelled', 11108.90, '105, Tan Phong, District 7, Ho Chi Minh City', 'COD', NULL, NULL, NULL, 1, ''),
+(25, 4, 'test', '0888888888', 'đóng gói cẩn thận nếu không muốn bị ban', '2024-04-21 09:48:18', 'cancelled', 3187.80, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, NULL, 1, ''),
+(26, 4, 'Kha', '0888888888', 'nếu muốn phá sản hãy gửi hàng đểu', '2024-04-21 09:49:27', 'processing', 3408.89, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, 340.89, 1, ''),
+(27, 15, 'cus1', '0987899977', 'hàng dễ vỡ xin nhẹ tay', '2024-04-21 10:45:07', 'received', 6049.99, '105, Tan Phong, District 7, Ho Chi Minh City', 'COD', NULL, NULL, 605.00, 1, ''),
+(28, 15, 'Kha', '0888888888', NULL, '2024-04-21 10:45:28', 'processing', 1429.99, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, 143.00, 1, ''),
+(29, 15, 'Chí Kha', '1234554321', 'đóng gói cẩn thận nếu không muốn bị ban', '2024-04-21 10:45:41', 'cancelled', 1209.99, 'Nhà Bè, TP Hồ Chí Minh', 'COD', NULL, NULL, 121.00, 1, ''),
+(30, 17, 'Kha', '0888888888', 'nếu muốn phá sản hãy gửi hàng đểu', '2024-04-22 03:48:00', 'delivered', 1429.99, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, 143.00, 0, ''),
+(31, 17, 'd', 'd', NULL, '2024-04-22 04:03:34', 'cancelled', 9563.40, 'd', 'COD', NULL, NULL, 956.34, 0, ''),
+(32, 1, 'Kha', '0888888888', 'che tên nếu không muốn bị hack', '2024-05-03 01:43:11', 'pending', 1613040.00, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, 161304.00, 0, ''),
+(33, 4, 'Kha', '0888888888', 'hàng dễ vỡ xin nhẹ tay', '2024-05-03 06:59:35', 'pending', 5389.97, 'xã Mỹ Hạnh Bắc, Đức Hòa, Long An', 'COD', NULL, NULL, 539.00, 0, ''),
+(34, 4, 'Chí Kha', '1234554321', 'đóng gói cẩn thận nếu không muốn bị ban', '2024-05-08 12:18:33', 'pending', 7699.92, 'Nhà Bè, TP Hồ Chí Minh', 'VNPAY', NULL, NULL, 769.99, 1, ''),
+(35, 1, 'cus2', '0333279377', 'đóng gói cẩn thận nếu không muốn bị ban', '2024-05-11 02:58:13', 'pending', 1429.99, '260, Mai Chi Tho, District 2, Ho Chi Minh City', 'VNPAY', NULL, NULL, 143.00, 0, ''),
+(36, 1, 'Chí Kha', '1234554321', 'đóng gói cẩn thận nếu không muốn bị ban', '2024-05-11 03:02:38', 'pending', 1539.99, 'Lê Văn Lương', 'VNPAY', NULL, NULL, 154.00, 1, ''),
+(37, 4, 'Chí Kha', '1234554321', 'đóng gói cẩn thận nếu không muốn bị ban', '2024-05-11 03:14:14', 'pending', 1539.99, 'Nhà Bè, TP Hồ Chí Minh', 'VNPAY', NULL, NULL, 154.00, 1, ''),
+(39, 4, 'Chí Kha', '1234554321', 'đóng gói cẩn thận nếu không muốn bị ban', '2024-05-11 03:19:04', 'cancelled', 3078.89, 'Nhà Bè, TP Hồ Chí Minh', 'VNPAY', NULL, NULL, 307.89, 0, ''),
+(40, 4, 'Chí Kha', '1234554321', 'đóng gói cẩn thận nếu không muốn bị ban', '2024-05-12 12:22:58', 'cancelled', 3299.98, 'Nhà Bè, TP Hồ Chí Minh', 'VNPAY', NULL, NULL, 330.00, 1, ''),
+(41, 4, 'Long', '555555555555', 'đóng gói cẩn thận nếu không muốn bị ban', '2024-05-12 12:25:12', 'cancelled', 1099.99, 'sao hỏa', 'VNPAY', NULL, NULL, 110.00, 1, ''),
+(42, 4, 'Chí Kha', '1234554321', 'đóng gói cẩn thận nếu không muốn bị ban', '2024-05-12 17:50:52', 'cancelled', 3627.80, 'Nhà Bè, TP Hồ Chí Minh', 'VNPAY', NULL, NULL, 362.78, 1, 'chikha13122@gmail.com'),
+(43, 4, 'Chí Kha', '1234554321', 'đóng gói cẩn thận nếu không muốn bị ban', '2024-05-12 17:58:45', 'pending', 2529.98, 'Nhà Bè, TP Hồ Chí Minh', 'VNPAY', NULL, NULL, 253.00, 1, 'chikha13122@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -307,7 +318,20 @@ INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `price`, `number_of
 (28, 31, 16, 1599.00, 3, 4797.00, NULL),
 (29, 32, 20, 1200.00, 1222, 1466400.00, 'ultra galaxy'),
 (30, 33, 5, 1099.99, 1, 1099.99, 'black'),
-(31, 33, 7, 1899.99, 2, 3799.98, NULL);
+(31, 33, 7, 1899.99, 2, 3799.98, NULL),
+(32, 34, 1, 999.99, 7, 6999.93, 'silver'),
+(33, 35, 8, 1299.99, 1, 1299.99, NULL),
+(34, 36, 3, 1399.99, 1, 1399.99, 'black'),
+(35, 37, 3, 1399.99, 1, 1399.99, 'black'),
+(36, 39, 5, 1099.99, 1, 1099.99, 'black'),
+(37, 39, 11, 1699.00, 1, 1699.00, NULL),
+(38, 40, 7, 1899.99, 1, 1899.99, NULL),
+(39, 40, 5, 1099.99, 1, 1099.99, 'black'),
+(40, 41, 1, 999.99, 1, 999.99, 'silver'),
+(41, 42, 12, 1699.00, 1, 1699.00, NULL),
+(42, 42, 13, 1599.00, 1, 1599.00, NULL),
+(43, 43, 1, 999.99, 1, 999.99, 'silver'),
+(44, 43, 2, 1299.99, 1, 1299.99, 'gray');
 
 -- --------------------------------------------------------
 
@@ -320,6 +344,33 @@ CREATE TABLE `password_reset_tokens` (
   `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `payments`
+--
+
+CREATE TABLE `payments` (
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `order_id` bigint UNSIGNED NOT NULL,
+  `method` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` decimal(8,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `payments`
+--
+
+INSERT INTO `payments` (`id`, `user_id`, `order_id`, `method`, `amount`, `created_at`, `updated_at`, `status`) VALUES
+(1, 4, 37, 'VNPAY', 1539.99, '2024-05-11 04:01:32', '2024-05-11 04:01:32', 'success'),
+(2, 4, 42, 'VNPAY', 3627.80, '2024-05-12 17:51:40', '2024-05-12 17:51:40', 'success'),
+(3, 4, 43, 'VNPAY', 2529.98, '2024-05-12 17:59:16', '2024-05-12 17:59:16', 'success'),
+(4, 4, 43, 'VNPAY', 2529.98, '2024-05-12 18:00:44', '2024-05-12 18:00:44', 'success');
 
 -- --------------------------------------------------------
 
@@ -369,7 +420,6 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `us
 (4, 'Chí Kha', 'abc123@gmail.com', NULL, '$2y$10$603JGoPbRqsaZ0NxEOxRl.YdIt77S2ndtu2pUJ3r3ZqRMDATy2cM2', 'user', NULL, '2024-04-13 14:04:43', '2024-04-13 14:04:43'),
 (5, 'Chi Kha', 'mck0506@gmail.com', NULL, '$2y$10$pfJGbpAlBDTjTiE9Klj63.mq8gNbMniq3QiSFNSLcLK7./tMwnZYW', 'user', NULL, '2024-04-15 11:25:56', '2024-04-15 11:25:56'),
 (12, 'Kha test mail', 'khamai05767@gmail.com', NULL, '$2y$10$2RlVTzp26Cj0yCsdlqSiDu/IJe0TE19y2i9t8qiC6S0wtkurYGFSW', 'user', NULL, '2024-04-16 03:26:24', '2024-04-16 03:26:24'),
-(13, 'kha test mail', 'chikha13122@gmail.com', NULL, '$2y$10$DGHVS1EG4lbWhE4fm3jNTuHzumoq6Ps32vnVjxjy4s8Yf.2KcQWky', 'user', NULL, '2024-04-16 03:30:42', '2024-04-16 03:30:42'),
 (14, 'mck', 'mck@gmail.com', NULL, '$2y$10$2wqUgTV92Q3t6xHNO7kFpuGciI2PPOZWybrLJUBwBaMYMujtA5.Va', 'user', NULL, '2024-04-21 08:26:05', '2024-04-21 08:26:05'),
 (15, 'Nam', 'nam@gmail.com', NULL, '$2y$10$JZ7yO6DzNYl8Npc8EkYaZuu26UnbX9MyRp1JDeSo.dgUa/L0dLdoO', 'user', NULL, '2024-04-21 10:39:10', '2024-04-21 10:39:10'),
 (16, 'Yen', 'chomatdin@gmail.com', NULL, '$2y$10$e8/qL8MM0iMeNBP12IRIhOz.SMoDBxz9w/r5iEBw71.coAbD9SFnC', 'user', NULL, '2024-04-22 03:38:19', '2024-04-22 03:38:19'),
@@ -442,6 +492,12 @@ ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
+-- Chỉ mục cho bảng `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
@@ -470,7 +526,7 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT cho bảng `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT cho bảng `failed_jobs`
@@ -494,19 +550,25 @@ ALTER TABLE `laptop_images`
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT cho bảng `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
+--
+-- AUTO_INCREMENT cho bảng `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `personal_access_tokens`
@@ -518,7 +580,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

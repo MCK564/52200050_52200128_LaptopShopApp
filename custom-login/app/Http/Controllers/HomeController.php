@@ -19,8 +19,8 @@ class HomeController extends Controller
             else{
                 return redirect()->back();
             }
-            
         }
+        return view('home');
    }
   
 }
