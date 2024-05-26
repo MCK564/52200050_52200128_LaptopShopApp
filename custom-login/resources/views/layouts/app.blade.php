@@ -10,35 +10,33 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <!-- Scripts --> 
+
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <script defer src="{{asset('js/app.js')}}"></script>
-         --}}
+    
         <style>
-
-
+            .ad{
+                top:150px;
+                transition: top 0.01s;
+            }
 
         </style>
     </head>
     <body class="font-sans antialiased ">
-        <div class="min-h-screen bg-gray-100 mb-2">
+        <div class="min-h-screen bg-gray-100 mb-2 relative">
             @include('layouts.navigation')
             
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
-
-            <!-- Page Content -->
+            <div class="ad fixed hidden lg:block left-2 text-white rounded-md shadow-md ">
+                <img src="{{ asset('images/left_ad2.png') }}" alt="laptop-icon" class="block w-28 h-72 fill-current text-gray-800 rounded-lg shadow-md border-white"/>
+            </div>
             <main>
                 {{ $slot }}
             </main>
+            <div class="ad fixed hidden lg:block right-2  text-white rounded-md shadow-md ">
+                <img src="{{ asset('images/right_ad.png') }}" alt="laptop-icon" class="block w-28 h-72 fill-current text-gray-800 rounded-lg shadow-md border-white"/>
+            </div>
             <footer class="bg-white shadow mb-2 text-gray-500">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 font-bold">
                     <div class="flex justify-between">
@@ -80,5 +78,18 @@
             
             
         </div>
+        <script>
+             window.addEventListener('scroll', function() {
+            const ads = document.querySelectorAll('.ad');
+            const maxOffset = 60; // Maximum offset distance in pixels
+            ads.forEach(ad => {
+                let offset = window.scrollY * 0.1;
+                if (offset > maxOffset) {
+                    offset = maxOffset;
+                }
+                ad.style.top = (150 - offset) + 'px'; 
+            });
+        });
+        </script>
     </body>
 </html>

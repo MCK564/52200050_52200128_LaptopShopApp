@@ -37,7 +37,7 @@
                 autocomplete=""
                 placeholder="Price To"
                 :value="old('priceTo')" />
-            <button id="submitButton" class="col-span-1 sm:col-span-1 bg-green-500  hover:bg-green-800 mt-1 px-3 py-1 text-white rounded">Search</button>
+            <button id="submitButton" class="col-span-1 sm:col-span-1 bg-cyan-500  hover:bg-cyan-800 mt-1 px-3 py-1 text-white rounded">Search</button>
         </form>
     </div>
     
@@ -103,9 +103,25 @@
             </div>
         </div>
         </div>
-                    <span class=" font-bold text-red-600">
-                        {{ $laptop->price }}
-                    </span>
+        <div class="text-sm text-gray-400  line-through">{{ $laptop->price + 500 }}</div>
+        <div class="flex">
+          <div class="text-xl text-cyan-500 ">{{ $laptop->price }}</div>
+          <div class="bg-cyan-50 border border-cyan-400 rounded-md text-sm text-center text-cyan-400 ml-1 p-1">
+              - {{ intval(50000 / $laptop->price) }}%
+          </div>
+        </div>
+        <div class="rounded-md flex text-yellow-200 text-sm gap-1">
+          @php
+              $randomRate = mt_rand(400, 500) / 100;
+          @endphp
+          {{ $randomRate }}
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="yellow">
+              <path d="M12 2l2.4 7.4H22l-6.1 4.6 2.3 7.2L12 17.6 5.8 21.2l2.3-7.2L2 9.4h7.6L12 2z"/>
+          </svg>
+          <div class="text-gray-400">
+              {{ "(0 comment)" }}
+          </div>
+      </div>
                 </div>
             </a>
         @endforeach

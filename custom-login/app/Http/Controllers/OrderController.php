@@ -9,6 +9,7 @@ use App\Models\Laptop;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\User;
+use App\Services\EmailService;
 
 class OrderController extends Controller
 {
@@ -18,12 +19,12 @@ class OrderController extends Controller
             $userType = Auth()->user()->user_type;
             if ($userType == 'admin') {
                 $orders = Order::orderBy("created_at",'desc')
-                ->paginate(50);
+                ->paginate(6);
                 return view('admin.orders.order', compact('orders'));
             } else if ($userType == 'user') {
                 $existing_user_id = Auth::id();
                 $orders = Order::where('user_id',$existing_user_id)
-                ->orderBy("created_at",'desc')
+                ->orderBy("order_date",'DESC')
                 ->get();
                 return view('order',compact('orders'));
             }
@@ -62,6 +63,10 @@ class OrderController extends Controller
            $item->delete();
         }
         if($request->input('payment_method') == 'COD'){
+            $mailService = new EmailService();
+            if( $mailService->sendBillMail($newOrder)){
+                return redirect()->route('orders.index')->with("message","Đặt hàng thành công");
+            }
             return redirect()->route('orders.index');
         }
         return redirect()->route('vnpay_payment',['id'=>$newOrder->id]);

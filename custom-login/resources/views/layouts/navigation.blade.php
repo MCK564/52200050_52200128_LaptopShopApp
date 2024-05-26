@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class=" border-b  fixed mx-auto w-full z-50 bg-cyan-700 shadow-md">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -42,7 +42,7 @@
                 <form method="GET" action="{{ Auth::check() && Auth::user()->user_type =='admin' ? route('admin_laptop.search') : route('laptop.search') }}" class="flex p-2  w-96   ">
                     <input type="text" name="keyword" class="w-full px-4 py-3 rounded-l-full border border-gray-300 focus:outline-none focus:border-cyan-500" placeholder="Search..." required>
 
-                    <button type="submit" class="px-4 py-3 bg-cyan-400 text-white rounded-r-full hover:bg-cyan-600 focus:outline-none">
+                    <button type="submit" class="px-4 py-3 bg-white text-cyan-700 rounded-r-full  focus:outline-none">
                         <svg class="h-6 w-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
                         </svg>
@@ -69,7 +69,7 @@
                 <div class="">   
                     @if (Auth::check() && Auth::user()->user_type == 'user')
                     <a href="{{ route('cart.index') }}" class="relative inline-block p-3 ">
-                        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart h-6 w-6 text-gray-500">
+                        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart h-6 w-6 text-white">
                             <circle cx="9" cy="21" r="1"></circle>
                             <circle cx="20" cy="21" r="1"></circle>
                             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h8.63a2 2 0 0 0 2-1.61L23 6H6"></path>
@@ -83,7 +83,7 @@
                 @if (Auth::check())
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-300  hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             <div>{{  Auth::user()->name }}</div>
                             
                             <div class="ms-1">
@@ -115,7 +115,7 @@
                 </x-dropdown>
                 @else
                 <button data-modal-target="static-modal" data-modal-toggle="static-modal" class="block color-cyan-400 hover:color-cyan-600" type="button">
-                    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart h-6 w-6 text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart h-6 w-6 text-white">
                         <circle cx="9" cy="21" r="1"></circle>
                         <circle cx="20" cy="21" r="1"></circle>
                         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h8.63a2 2 0 0 0 2-1.61L23 6H6"></path>

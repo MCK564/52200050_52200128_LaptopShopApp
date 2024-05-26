@@ -98,13 +98,9 @@ class PaymentController extends Controller
         }
     }
     
-    // Remove vnp_SecureHash from input data
+    
     unset($inputData['vnp_SecureHash']);
-    
-    // Sort the input data array by key
     ksort($inputData);
-    
-    // Initialize variables for hashing
     $hashData = "";
     $i = 0;
     

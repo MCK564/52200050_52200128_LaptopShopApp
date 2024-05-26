@@ -205,8 +205,17 @@ class LaptopController extends Controller
 
     public function getById($id){
         $laptop = Laptop::findOrFail($id);
-        return view('laptop_details',compact('laptop'));
+        $similar_laptops = Laptop::where('brand_id', $laptop->brand_id)
+                                ->orWhere('ram',$laptop->ram)
+                                ->orWhere('rom',$laptop->rom)
+                                ->where('id', '!=', $id)
+                                ->orderBy('created_at', 'desc')
+                                ->take(5)
+                                ->get();
+        
+        return view('laptop_details', compact('laptop', 'similar_laptops'));
     }
+    
 
     public function UserSearch(Request $request){
         $keyword = $request->input('keyword');

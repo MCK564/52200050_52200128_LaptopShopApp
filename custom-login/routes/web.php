@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware('auth','admin')->group(function(){
+    
     // managin laptops
     Route::get('/admin/laptops',[LaptopController::class,'index'])->name('admin_laptop.index');
     Route::get('/admin/laptops/search', [LaptopController::class, 'search'])->name('admin_laptop.search');
